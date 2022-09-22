@@ -1,0 +1,21 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+_Card = [wands, 9], 
+tarotConnectingTrumpIgnoreSuit(mathers, _Card, _Card2, _Trump),
+tarotCardString(_Card, Card),
+tarotCardString(_Trump, ConnectingCard),
+tarotCardString(_Card2, ConnectedCard).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+_Card = [wands, 9], 
+tarotCardRulingPrincess(_Card, _PrincessCard),
+tarotCardString(_Card, Card),
+tarotCardString(_PrincessCard, PrincessCard).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+_Card = [wands, 9], 
+tarotCardRulingCourt(_Card, _CourtCard),
+tarotCardString(_Card, Card),
+tarotCardString(_CourtCard, CourtCard).
