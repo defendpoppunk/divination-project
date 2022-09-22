@@ -22,3 +22,13 @@ _Card = [wands, 9],
 tarotCardRulingCourt(_Card, _CourtCard),
 tarotCardString(_Card, Card),
 tarotCardString(_CourtCard, CourtCard).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% gets corresponding planet/zodiac sign
+_Card = [wands, 9], 
+tarotValSuitCard(_Number, _Suit, _Card),
+tarotNumberSuitSign(_Number, _Suit, _Sign),
+tarotNumberSuitPlanet(_Number, _Suit, _Planet),
+zodiacSignSymbol(_Sign, ZodiacSymbol),
+zodiacPlanetSymbol(_Planet, PlanetSymbol).

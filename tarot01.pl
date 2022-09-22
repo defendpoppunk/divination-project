@@ -61,6 +61,8 @@ zodiacSignGloss(Sign, Gloss) :-
     zodiacSignBasicInfo(_, Sign, _, Gloss, _).
 zodiacSignRuler(Sign, Ruler) :- 
     zodiacSignBasicInfo(_, Sign, _, _, Ruler).
+zodiacPlanetSymbol(Planet, Symbol) :- 
+    planetBasicInfo(Planet, Symbol, _).
 zodiacSignDecans(Sign, Decans) :- 
     zodiacSignHouse(Sign, House),
     Decan1 is 3 * House - 2,
@@ -123,11 +125,10 @@ tarotNumberSuitSign(Number, Suit, Sign) :-
     zodiacSignDecans(Sign, Decans),
     tarotNumberSuitDecan(Number, Suit, Decan),
     member(Decan, Decans).
-tarotNumberSuitPlanet(Number, Suit, Sign) :-
+tarotNumberSuitPlanet(Number, Suit, Planet) :-
     isTarotNumber(Number),
-    zodiacSignDecans(Sign, Decans),
-    tarotNumberSuitDecan(Number, Suit, Decan),
-    member(Decan, Decans).
+    zodiacDecanPlanet(Decan, Planet),
+    tarotNumberSuitDecan(Number, Suit, Decan).
 tarotAceSuitQuadrant(Suit, Quadrant) :-
     isZodiacQuadrant(Quadrant),
     Idx is Quadrant - 1,
