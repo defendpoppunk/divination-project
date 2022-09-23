@@ -7,7 +7,7 @@
 betweenCheckInteger(Low, High, Value) :-
     (   
         var(Value);
-    	integer(Value)
+        integer(Value)
     ),
     between(Low, High, Value).
 
@@ -220,106 +220,106 @@ sefirotConnects(Node1, Node2, Path) :-
 %TAROT TRUMPS
 %tarotTrumpPathOrder(Scheme, PathOrder).
 tarotTrumpPathOrder(yetzirah, [0, 21, 10, 16, 4, 5, 6, 7, 8, 9, 19, 11,
-                                 12, 13, 14, 15, 3, 17, 18, 1, 20, 2]).
+                              12, 13, 14, 15, 3, 17, 18, 1, 20, 2]).
 tarotTrumpPathOrder(mathers,  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-                                 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]).
+                              12, 13, 14, 15, 16, 17, 18, 19, 20, 21]).
 tarotTrumpPathOrder(crowley,  [0, 1, 2, 3, 4, 5, 6, 7, 11, 9, 10, 8,
-                                 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]).
+                              12, 13, 14, 15, 16, 17, 18, 19, 20, 21]).
 
 %tarotTrumpNumerals(Numerals).
 tarotTrumpNumerals(['∅', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 
-                      'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 
-                      'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI']).
+                   'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 
+                   'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI']).
 
 %tarotTrumpNames(Scheme, NameOrder).
 tarotTrumpNames(rws,        ['the fool', 
-                              'the magician', 
-                              'the high priestess', 
-                              'the empress', 
-                              'the emperor', 
-                              'the hierophant',
-                              'the lovers', 
-                              'the chariot', 
-                              'strength',
-                              'the hermit', 
-                              'wheel of fortune', 
-                              'justice',
-                              'the hanged man', 
-                              'death', 
-                              'temperance',
-                              'the devil', 
-                              'the tower', 
-                              'the star',
-                              'the moon', 
-                              'the sun', 
-                              'judgement',
-                              'the world']).
+                             'the magician', 
+                             'the high priestess', 
+                             'the empress', 
+                             'the emperor', 
+                             'the hierophant',
+                             'the lovers', 
+                             'the chariot', 
+                             'strength',
+                             'the hermit', 
+                             'wheel of fortune', 
+                             'justice',
+                             'the hanged man', 
+                             'death', 
+                             'temperance',
+                             'the devil', 
+                             'the tower', 
+                             'the star',
+                             'the moon', 
+                             'the sun', 
+                             'judgement',
+                             'the world']).
 tarotTrumpNames(goldendawn, ['the fool', 
-                              'the magician', 
-                              'the high priestess', 
-                              'the empress', 
-                              'the emperor', 
-                              'the hierophant',
-                              'the lovers', 
-                              'the chariot', 
-                              'justice',
-                              'the hermit', 
-                              'the wheel of fortune', 
-                              'strength',
-                              'the hanged man', 
-                              'death', 
-                              'temperance',
-                              'the devil', 
-                              'the blasted tower', 
-                              'the star',
-                              'the moon', 
-                              'the sun', 
-                              'judgement',
-                              'the universe']).
+                             'the magician', 
+                             'the high priestess', 
+                             'the empress', 
+                             'the emperor', 
+                             'the hierophant',
+                             'the lovers', 
+                             'the chariot', 
+                             'justice',
+                             'the hermit', 
+                             'the wheel of fortune', 
+                             'strength',
+                             'the hanged man', 
+                             'death', 
+                             'temperance',
+                             'the devil', 
+                             'the blasted tower', 
+                             'the star',
+                             'the moon', 
+                             'the sun', 
+                             'judgement',
+                             'the universe']).
 tarotTrumpNames(marseilles, ['the fool', 
-                              'the juggler', 
-                              'the popess', 
-                              'the empress', 
-                              'the emperor', 
-                              'the pope',
-                              'the lovers', 
-                              'the chariot', 
-                              'justice',
-                              'the hermit', 
-                              'the wheel of fortune', 
-                              'strength',
-                              'the hanged man', 
-                              'death', 
-                              'temperance',
-                              'the devil', 
-                              'the house of god', 
-                              'the star',
-                              'the moon', 
-                              'the sun', 
-                              'judgement',
-                              'the world']).
+                             'the juggler', 
+                             'the popess', 
+                             'the empress', 
+                             'the emperor', 
+                             'the pope',
+                             'the lovers', 
+                             'the chariot', 
+                             'justice',
+                             'the hermit', 
+                             'the wheel of fortune', 
+                             'strength',
+                             'the hanged man', 
+                             'death', 
+                             'temperance',
+                             'the devil', 
+                             'the house of god', 
+                             'the star',
+                             'the moon', 
+                             'the sun', 
+                             'judgement',
+                             'the world']).
 tarotTrumpNames(thoth,      ['the fool', 
-                              'the magus', 
-                              'the priestess', 
-                              'the empress', 
-                              'the emperor', 
-                              'the hierophant',
-                              'the lovers', 
-                              'the chariot', 
-                              'adjustment',
-                              'the hermit', 
-                              'the wheel of fortune', 
-                              'lust',
-                              'the hanged man', 
-                              'death', 
-                              'art',
-                              'the devil', 
-                              'the tower', 
-                              'the star',
-                              'the moon', 
-                              'the sun', 
-                              'the aeon',
-                              'the universe']).
+                             'the magus', 
+                             'the priestess', 
+                             'the empress', 
+                             'the emperor', 
+                             'the hierophant',
+                             'the lovers', 
+                             'the chariot', 
+                             'adjustment',
+                             'the hermit', 
+                             'the wheel of fortune', 
+                             'lust',
+                             'the hanged man', 
+                             'death', 
+                             'art',
+                             'the devil', 
+                             'the tower', 
+                             'the star',
+                             'the moon', 
+                             'the sun', 
+                             'the aeon',
+                             'the universe']).
 
 isTarotTrump(Number) :-
     betweenCheckInteger(0, 21, Number).
@@ -367,10 +367,10 @@ tarotValSuitCard(ace, Suit, [Suit, ace]) :-
     isTarotMinorSuit(Suit).
 tarotValSuitCard(Court, Suit, [Suit, Court]) :-
     isTarotMinorSuit(Suit),
-	isTarotCourt(Court).
+    isTarotCourt(Court).
 tarotValSuitCard(Number, Suit, [Suit, Number]) :-
     isTarotMinorSuit(Suit),
-	isTarotNumber(Number).
+    isTarotNumber(Number).
 tarotCardVal(Card, Val) :-
     tarotValSuitCard(Val, _, Card).
 tarotCardSuit(Card, Suit) :-
@@ -417,7 +417,7 @@ tarotCardRulingPrincess([Suit, Number], [PrincessSuit, princess]) :-
 tarotCardRulingAce([Suit, Number], [AceSuit, ace]) :-
     tarotNumberSuitRulingAce(Number, Suit, AceSuit).
 tarotCardRulingCourt([Suit, Number], [CourtSuit, Court]) :-
-	tarotNumberSuitRulingCourt(Number, Suit, Court, CourtSuit).
+    tarotNumberSuitRulingCourt(Number, Suit, Court, CourtSuit).
 
 
 %STRING CONVERSION
