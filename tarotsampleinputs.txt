@@ -25,10 +25,16 @@ tarotCardString(_CourtCard, CourtCard).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% gets corresponding planet/zodiac sign
+% gets corresponding planet/zodiac sign for 9 of wands
 _Card = [wands, 9], 
 tarotValSuitCard(_Number, _Suit, _Card),
 tarotNumberSuitSign(_Number, _Suit, _Sign),
 tarotNumberSuitPlanet(_Number, _Suit, _Planet),
 zodiacSignSymbol(_Sign, ZodiacSymbol),
 zodiacPlanetSymbol(_Planet, PlanetSymbol).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% gets all cards in order by decan
+tarotListNumCardByDecan(_CardList),
+tarotCardListStringList(_CardList, List).

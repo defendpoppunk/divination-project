@@ -11,6 +11,25 @@ betweenCheckInteger(Low, High, Value) :-
     ),
     between(Low, High, Value).
 
+%lists all integers between Low & High. fails if List is partial
+rangeList(Num, Num, [Num]) :-
+    integer(Num).
+rangeList(Low, High, [Low | Tail]) :-
+    integer(Low),
+    integer(High),
+    NewLow is Low + 1,
+    NewLow =< High,
+    rangeList(NewLow, High, Tail).
+rangeList(Low, High, [Low | Tail]) :-
+    integer(Low),
+    var(High),
+    NewLow is Low + 1,
+    rangeList(NewLow, High, Tail),
+    NewLow =< High.
+    
+    
+
+
 %ZODIAC
 %zodiacSignBasicInfo(House, Sign, Symbol, Gloss, Ruler).
 zodiacSignBasicInfo(1,  aries,       '♈︎', 'ram',          mars).
@@ -332,7 +351,7 @@ tarotTrumpPath(Scheme, TrumpNumber, Path) :-
     isTarotTrumpPathScheme(Scheme),
     tarotTrumpPathOrder(Scheme, Order),
     Idx is Path - 1,
-	nth0(Idx, Order, TrumpNumber).
+    nth0(Idx, Order, TrumpNumber).
 
 
 %SEFIROT NODES
@@ -418,6 +437,8 @@ tarotCardRulingAce([Suit, Number], [AceSuit, ace]) :-
     tarotNumberSuitRulingAce(Number, Suit, AceSuit).
 tarotCardRulingCourt([Suit, Number], [CourtSuit, Court]) :-
     tarotNumberSuitRulingCourt(Number, Suit, Court, CourtSuit).
+tarotNumberCardDecan([Suit, Number], Decan) :-
+    tarotNumberSuitDecan(Number, Suit, Decan).
 
 
 %STRING CONVERSION
@@ -442,7 +463,23 @@ tarotCardString([trump, Val], CardStr) :-
     tarotTrumpNumerals(Numerals),
     nth0(Val, Numerals, CardStr).
 
+tarotCardListStringList(CardList, StrList) :-
+    maplist(tarotCardString, CardList, StrList).
 
+
+
+%MISC
+%TODO: organize
+zodiacDecanList(List) :-
+    rangeList(1, 36, List).
+tarotListNumCardByDecan(List) :-
+    zodiacDecanList(DecanList),
+    maplist(tarotNumberCardDecan, List, DecanList).
+zodiacQuadrantList(List) :-
+    rangeList(1, 36, List).
+tarotListNumCardByDecan(List) :-
+    zodiacDecanList(DecanList),
+    maplist(tarotNumberCardDecan, List, DecanList).
 
 
 
