@@ -477,9 +477,6 @@ tarotListNumCardByDecan(List) :-
     maplist(tarotNumberCardDecan, List, DecanList).
 zodiacQuadrantList(List) :-
     rangeList(1, 36, List).
-tarotListNumCardByDecan(List) :-
-    zodiacDecanList(DecanList),
-    maplist(tarotNumberCardDecan, List, DecanList).
 
 
 
