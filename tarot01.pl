@@ -33,7 +33,7 @@ zodiacSignBasicInfo(1,  aries,       '♈︎', 'ram').
 zodiacSignBasicInfo(2,  taurus,      '♉︎', 'bull').
 zodiacSignBasicInfo(3,  gemini,      '♊︎', 'twins').
 zodiacSignBasicInfo(4,  cancer,      '♋︎', 'crab').
-zodiacSignBasicInfo(5,  leo,         '♌︎', 'lion',).
+zodiacSignBasicInfo(5,  leo,         '♌︎', 'lion').
 zodiacSignBasicInfo(6,  virgo,       '♍︎', 'maiden').
 zodiacSignBasicInfo(7,  libra,       '♎︎', 'scales').
 zodiacSignBasicInfo(8,  scorpio,     '♏︎', 'scorpion').
@@ -55,13 +55,13 @@ planetBasicInfo(neptune, '♆', modern).
 planetBasicInfo(pluto,   '♇', modern).
 
 isZodiacHouse(House) :- 
-    zodiacSignBasicInfo(House, _, _, _, _).
+    zodiacSignBasicInfo(House, _, _, _).
 isZodiacSign(Sign) :- 
-    zodiacSignBasicInfo(_, Sign, _, _, _).
+    zodiacSignBasicInfo(_, Sign, _, _).
 isZodiacSymbol(Symbol) :- 
-    zodiacSignBasicInfo(_, _, Symbol, _, _).
+    zodiacSignBasicInfo(_, _, Symbol, _).
 isZodiacGloss(Gloss) :-
-    zodiacSignBasicInfo(_, _, _, Gloss, _).
+    zodiacSignBasicInfo(_, _, _, Gloss).
 isZodiacPolarity(Polarity) :-
     Polarity = positive;
     Polarity = negative.
@@ -71,11 +71,11 @@ isZodiacQuadrant(Quadrant) :-
     betweenCheckInteger(1, 4, Quadrant).
 
 zodiacSignHouse(Sign, House) :- 
-    zodiacSignBasicInfo(House, Sign, _, _, _).
+    zodiacSignBasicInfo(House, Sign, _, _).
 zodiacSignSymbol(Sign, Symbol) :- 
-    zodiacSignBasicInfo(_, Sign, Symbol, _, _).
+    zodiacSignBasicInfo(_, Sign, Symbol, _).
 zodiacSignGloss(Sign, Gloss) :- 
-    zodiacSignBasicInfo(_, Sign, _, Gloss, _).
+    zodiacSignBasicInfo(_, Sign, _, Gloss).
 zodiacPlanetSymbol(Planet, Symbol) :- 
     planetBasicInfo(Planet, Symbol, _).
 zodiacSignDecans(Sign, Decans) :- 
@@ -101,7 +101,7 @@ zodiacSignPolarity(Sign, Polarity) :-
     nth0(Idx, [positive, negative], Polarity).
 zodiacSignOpposite(Sign, OppositeSign) :-
     zodiacSignHouse(Sign, House),
-    OppositeHouse is (House + 5) mod 10 + 1,
+    OppositeHouse is (House + 5) mod 12 + 1,
     zodiacSignHouse(OppositeSign, OppositeHouse).
 zodiacDecanPlanet(Decan, Planet) :-
     isZodiacDecan(Decan),
@@ -142,10 +142,10 @@ planetExaltation(saturn,  libra).
 
 planetDetriment(Planet, Sign) :-
     planetDomicile(Planet, DomicileSign),
-    zodiacSignOpposite(DomicileSign. Sign).
+    zodiacSignOpposite(DomicileSign, Sign).
 planetFall(Planet, Sign) :-
     planetExaltation(Planet, ExaltationSign),
-    zodiacSignOpposite(ExaltationSign. Sign).
+    zodiacSignOpposite(ExaltationSign, Sign).
 
 %planetSignDignity(Planet, Sign, Dignity).
 planetSignDignity(Planet, Sign, domicile) :-
@@ -558,6 +558,7 @@ tarotListCardByIndex(List) :-
 
 tarotNumberCardZodiacDignity(Card, Dignity) :-
     tarotNumberCardDecan(Card, Decan),
+    zodiacDecanDignity(Decan, Dignity).
     
 
 
