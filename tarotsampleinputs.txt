@@ -51,3 +51,10 @@ tarotCardListStringList(_CourtList, List).
 % gets all cards in order by index
 tarotListCardByIndex(_CardList),
 tarotCardListStringList(_CardList, List).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% gets corresponding essential dignity for 8 of swords
+_Card = [swords, 8],
+tarotNumberCardZodiacDignity(_Card, Dignity),
+tarotCardString(_Card, Card).

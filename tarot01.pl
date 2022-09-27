@@ -26,24 +26,21 @@ rangeList(Low, High, [Low | Tail]) :-
     NewLow is Low + 1,
     rangeList(NewLow, High, Tail),
     NewLow =< High.
-    
-    
-
 
 %ZODIAC
-%zodiacSignBasicInfo(House, Sign, Symbol, Gloss, Ruler).
-zodiacSignBasicInfo(1,  aries,       '♈︎', 'ram',          mars).
-zodiacSignBasicInfo(2,  taurus,      '♉︎', 'bull',         venus).
-zodiacSignBasicInfo(3,  gemini,      '♊︎', 'twins',        mercury).
-zodiacSignBasicInfo(4,  cancer,      '♋︎', 'crab',         moon).
-zodiacSignBasicInfo(5,  leo,         '♌︎', 'lion',         sun).
-zodiacSignBasicInfo(6,  virgo,       '♍︎', 'maiden',       mercury).
-zodiacSignBasicInfo(7,  libra,       '♎︎', 'scales',       venus).
-zodiacSignBasicInfo(8,  scorpio,     '♏︎', 'scorpion',     mars).
-zodiacSignBasicInfo(9,  sagittarius, '♐︎', 'archer',       jupiter).
-zodiacSignBasicInfo(10, capricorn,   '♑︎', 'goat',         saturn).
-zodiacSignBasicInfo(11, aquarius,    '♒︎', 'water-bearer', saturn).
-zodiacSignBasicInfo(12, pisces,      '♓︎', 'fish',         jupiter).
+%zodiacSignBasicInfo(House, Sign, Symbol, Gloss).
+zodiacSignBasicInfo(1,  aries,       '♈︎', 'ram').
+zodiacSignBasicInfo(2,  taurus,      '♉︎', 'bull').
+zodiacSignBasicInfo(3,  gemini,      '♊︎', 'twins').
+zodiacSignBasicInfo(4,  cancer,      '♋︎', 'crab').
+zodiacSignBasicInfo(5,  leo,         '♌︎', 'lion',).
+zodiacSignBasicInfo(6,  virgo,       '♍︎', 'maiden').
+zodiacSignBasicInfo(7,  libra,       '♎︎', 'scales').
+zodiacSignBasicInfo(8,  scorpio,     '♏︎', 'scorpion').
+zodiacSignBasicInfo(9,  sagittarius, '♐︎', 'archer').
+zodiacSignBasicInfo(10, capricorn,   '♑︎', 'goat').
+zodiacSignBasicInfo(11, aquarius,    '♒︎', 'water-bearer').
+zodiacSignBasicInfo(12, pisces,      '♓︎', 'fish').
 
 %planetBasicInfo(Planet, Symbol, Connection).
 planetBasicInfo(moon,    '☽︎', ancient).
@@ -65,8 +62,9 @@ isZodiacSymbol(Symbol) :-
     zodiacSignBasicInfo(_, _, Symbol, _, _).
 isZodiacGloss(Gloss) :-
     zodiacSignBasicInfo(_, _, _, Gloss, _).
-isZodiacRuler(Ruler) :- 
-    zodiacSignBasicInfo(_, _, _, _, Ruler).
+isZodiacPolarity(Polarity) :-
+    Polarity = positive;
+    Polarity = negative.
 isZodiacDecan(Decan) :- 
     betweenCheckInteger(1, 36, Decan).
 isZodiacQuadrant(Quadrant) :-
@@ -78,8 +76,6 @@ zodiacSignSymbol(Sign, Symbol) :-
     zodiacSignBasicInfo(_, Sign, Symbol, _, _).
 zodiacSignGloss(Sign, Gloss) :- 
     zodiacSignBasicInfo(_, Sign, _, Gloss, _).
-zodiacSignRuler(Sign, Ruler) :- 
-    zodiacSignBasicInfo(_, Sign, _, _, Ruler).
 zodiacPlanetSymbol(Planet, Symbol) :- 
     planetBasicInfo(Planet, Symbol, _).
 zodiacSignDecans(Sign, Decans) :- 
@@ -99,6 +95,14 @@ zodiacSignModality(Sign, Modality) :-
     zodiacSignHouse(Sign, House),
     Idx is (House - 1) mod 3,
     nth0(Idx, [cardinal, fixed, mutable], Modality).
+zodiacSignPolarity(Sign, Polarity) :-
+    zodiacSignHouse(Sign, House),
+    Idx is (House - 1) mod 2,
+    nth0(Idx, [positive, negative], Polarity).
+zodiacSignOpposite(Sign, OppositeSign) :-
+    zodiacSignHouse(Sign, House),
+    OppositeHouse is (House + 5) mod 10 + 1,
+    zodiacSignHouse(OppositeSign, OppositeHouse).
 zodiacDecanPlanet(Decan, Planet) :-
     isZodiacDecan(Decan),
     Idx is (Decan - 1) mod 7,
@@ -111,6 +115,58 @@ zodiacNextDecan(Decan, NextDecan) :-
     isZodiacDecan(Decan),
     isZodiacDecan(NextDecan),
     NextDecan is Decan mod 36 + 1.
+
+%PLANET ESSENTIAL DIGNITIES
+%planetDomicile(Planet, Sign).
+planetDomicile(sun,     leo).
+planetDomicile(moon,    cancer).
+planetDomicile(mercury, gemini).
+planetDomicile(mercury, virgo).
+planetDomicile(venus,   libra).
+planetDomicile(venus,   taurus).
+planetDomicile(mars,    aries).
+planetDomicile(mars,    scorpio).
+planetDomicile(jupiter, sagittarius).
+planetDomicile(jupiter, pisces).
+planetDomicile(saturn,  capricorn).
+planetDomicile(saturn,  aquarius).
+
+%planetExaltation(Planet, Sign).
+planetExaltation(sun,     aries).
+planetExaltation(moon,    taurus).
+planetExaltation(mercury, virgo).
+planetExaltation(venus,   pisces).
+planetExaltation(mars,    capricorn).
+planetExaltation(jupiter, cancer).
+planetExaltation(saturn,  libra).
+
+planetDetriment(Planet, Sign) :-
+    planetDomicile(Planet, DomicileSign),
+    zodiacSignOpposite(DomicileSign. Sign).
+planetFall(Planet, Sign) :-
+    planetExaltation(Planet, ExaltationSign),
+    zodiacSignOpposite(ExaltationSign. Sign).
+
+%planetSignDignity(Planet, Sign, Dignity).
+planetSignDignity(Planet, Sign, domicile) :-
+    planetDomicile(Planet, Sign).
+planetSignDignity(Planet, Sign, exaltation) :-
+    planetExaltation(Planet, Sign).
+planetSignDignity(Planet, Sign, detriment) :-
+    planetDetriment(Planet, Sign).
+planetSignDignity(Planet, Sign, fall) :-
+    planetFall(Planet, Sign).
+planetSignDignity(Planet, Sign, none) :-
+    \+ planetDomicile(Planet, Sign),
+    \+ planetExaltation(Planet, Sign),
+    \+ planetDetriment(Planet, Sign),
+    \+ planetFall(Planet, Sign).
+
+zodiacDecanDignity(Decan, Dignity) :-
+    zodiacDecanPlanet(Decan, Planet),
+    zodiacSignDecans(Sign, Decans),
+    member(Decan, Decans),
+    planetSignDignity(Planet, Sign, Dignity).
 
 %TAROT BASICS
 %tarotSuitBasicInfo(Suit, FrenchSuit, Symbol, FrenchSymbol, Element).
@@ -500,6 +556,9 @@ tarotListCardByIndex(List) :-
     tarotIndexList(IndexList),
     maplist(tarotCardIndex, List, IndexList).
 
+tarotNumberCardZodiacDignity(Card, Dignity) :-
+    tarotNumberCardDecan(Card, Decan),
+    
 
 
 

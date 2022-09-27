@@ -1,0 +1,8 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% gets random hexagram & transformed hexagram (character + name) using stalk method
+randomHexagram(stalks, _CastNum, _TransformedNum),
+hexagramCharacter(_CastNum, CastHexagram),
+hexagramCharacter(_TransformedNum, TransformedHexagram),
+hexagramEnglishName(_CastNum, CastHexagramName),
+hexagramEnglishName(_TransformedNum, TransformedHexagramName).
