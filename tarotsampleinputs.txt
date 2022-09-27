@@ -45,3 +45,9 @@ tarotCardListStringList(_CardList, List).
 tarotListNumCardByDecan(_CardList),
 maplist(tarotCardRulingCourt, _CardList, _CourtList),
 tarotCardListStringList(_CourtList, List).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% gets all cards in order by index
+tarotListCardByIndex(_CardList),
+tarotCardListStringList(_CardList, List).

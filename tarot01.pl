@@ -440,6 +440,23 @@ tarotCardRulingCourt([Suit, Number], [CourtSuit, Court]) :-
 tarotNumberCardDecan([Suit, Number], Decan) :-
     tarotNumberSuitDecan(Number, Suit, Decan).
 
+%TAROT INDICES
+tarotMinotSuitOrderByIndex([wands, cups, swords, pentacles]).
+tarotMinorValOrderByIndex([ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, 
+                          princess, prince, queen, king]).
+
+%tarotCardIndex([Suit, Val], Index).
+tarotCardIndex([trump, Val], Index) :-
+    betweenCheckInteger(1, 22, Index),
+    isTarotTrump(Val),
+    Index is Val + 1.
+tarotCardIndex([Suit, Val], Index) :-
+    betweenCheckInteger(23, 78, Index),
+    tarotMinotSuitOrderByIndex(SuitOrder),
+    tarotMinorValOrderByIndex(ValOrder),
+    nth0(SuitIndex, SuitOrder, Suit),
+    nth0(ValIndex, ValOrder, Val),
+    Index is 23 + (SuitIndex * 14) + ValIndex.
 
 %STRING CONVERSION
 %tarotValAbbreviation(Val, Abbr).
@@ -476,8 +493,12 @@ tarotListNumCardByDecan(List) :-
     zodiacDecanList(DecanList),
     maplist(tarotNumberCardDecan, List, DecanList).
 zodiacQuadrantList(List) :-
-    rangeList(1, 36, List).
-
+    rangeList(1, 4, List).
+tarotIndexList(List) :-
+    rangeList(1, 78, List).
+tarotListCardByIndex(List) :-
+    tarotIndexList(IndexList),
+    maplist(tarotCardIndex, List, IndexList).
 
 
 
