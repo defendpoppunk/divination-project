@@ -58,3 +58,10 @@ tarotCardListStringList(_CardList, List).
 _Card = [swords, 8],
 tarotNumberCardZodiacDignity(_Card, Dignity),
 tarotCardString(_Card, Card).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% gets corresponding zodiac info for 8 of swords
+_Card = [swords, 8],
+tarotNumberCardZodiacInfo(_Card, Sign, Planet, Polarity, Modality, Triplicity, Dignity),
+tarotCardString(_Card, Card).
