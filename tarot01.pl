@@ -84,6 +84,9 @@ zodiacSignDecans(Sign, Decans) :-
     Decan2 is 3 * House - 1,
     Decan3 is 3 * House,
     Decans = [Decan1, Decan2, Decan3].
+zodiacSignDecan(Sign, Decan) :-
+    zodiacSignDecans(Sign, Decans),
+    member(Decan, Decans).
 zodiacSignQuadrant(Sign, Quadrant) :- 
     zodiacSignHouse(Sign, House),
     Quadrant is (House - 1) div 3.
@@ -164,8 +167,7 @@ planetSignDignity(Planet, Sign, none) :-
 
 zodiacDecanDignity(Decan, Dignity) :-
     zodiacDecanPlanet(Decan, Planet),
-    zodiacSignDecans(Sign, Decans),
-    member(Decan, Decans),
+    zodiacSignDecan(Sign, Decan),
     planetSignDignity(Planet, Sign, Dignity).
 
 %TAROT BASICS
@@ -559,10 +561,29 @@ tarotListCardByIndex(List) :-
 tarotNumberCardZodiacDignity(Card, Dignity) :-
     tarotNumberCardDecan(Card, Decan),
     zodiacDecanDignity(Decan, Dignity).
-    
-
-
-
+tarotNumberCardZodiacSign(Card, Sign) :-
+    tarotValSuitCard(Number, Suit, Card),
+    tarotNumberSuitSign(Number, Suit, Sign).
+tarotNumberCardZodiacPlanet(Card, Planet) :-
+    tarotValSuitCard(Number, Suit, Card),
+    tarotNumberSuitPlanet(Number, Suit, Planet).
+tarotNumberCardZodiacPolarity(Card, Polarity) :-
+    tarotNumberCardZodiacSign(Card, Sign),
+    zodiacSignPolarity(Sign, Polarity).
+tarotNumberCardZodiacModality(Card, Modality) :-
+    tarotNumberCardZodiacSign(Card, Sign),
+    zodiacSignModality(Sign, Modality).
+tarotNumberCardZodiacTriplicity(Card, Triplicity) :-
+    tarotNumberCardZodiacSign(Card, Sign),
+    zodiacSignTriplicity(Sign, Triplicity).
+tarotNumberCardZodiacInfo(Card, Sign, Planet, Polarity, Modality, 
+                          Triplicity, Dignity) :-
+    tarotNumberCardZodiacSign(Card, Sign),
+    tarotNumberCardZodiacPlanet(Card, Planet),
+    tarotNumberCardZodiacPolarity(Card, Polarity),
+    tarotNumberCardZodiacModality(Card, Modality),
+	tarotNumberCardZodiacTriplicity(Card, Triplicity),
+    tarotNumberCardZodiacDignity(Card, Dignity).
 
 
 
