@@ -38,3 +38,10 @@ zodiacPlanetSymbol(_Planet, PlanetSymbol).
 % gets all cards in order by decan
 tarotListNumCardByDecan(_CardList),
 tarotCardListStringList(_CardList, List).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% gets all court cards in order by decan
+tarotListNumCardByDecan(_CardList),
+maplist(tarotCardRulingCourt, _CardList, _CourtList),
+tarotCardListStringList(_CourtList, List).
