@@ -65,3 +65,12 @@ tarotCardString(_Card, Card).
 _Card = [swords, 8],
 tarotNumberCardZodiacInfo(_Card, Sign, Planet, Polarity, Modality, Triplicity, Dignity),
 tarotCardString(_Card, Card).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% gets corresponding zodiac trump cards for 8 of swords
+_Card = [swords, 8],
+tarotNumberCardZodiacTrumps(rws, _Card, _SignCard, _PlanetCard),
+tarotCardString(_Card, Card),
+tarotTrumpCardName(rws, _SignCard, SignCard),
+tarotTrumpCardName(rws, _PlanetCard, PlanetCard).

@@ -295,7 +295,7 @@ sefirotConnects(Node1, Node2, Path) :-
     ).
 
 %TAROT TRUMPS
-%tarotTrumpPathOrder(Scheme, PathOrder).
+%tarotTrumpPathOrder(TrumpPathScheme, PathOrder).
 tarotTrumpPathOrder(yetzirah, [0, 21, 10, 16, 4, 5, 6, 7, 8, 9, 19, 11,
                               12, 13, 14, 15, 3, 17, 18, 1, 20, 2]).
 tarotTrumpPathOrder(mathers,  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
@@ -308,7 +308,7 @@ tarotTrumpNumerals(['∅', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII',
                    'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 
                    'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI']).
 
-%tarotTrumpNames(Scheme, NameOrder).
+%tarotTrumpNames(TrumpNameScheme, NameOrder).
 tarotTrumpNames(rws,        ['the fool', 
                              'the magician', 
                              'the high priestess', 
@@ -398,19 +398,72 @@ tarotTrumpNames(thoth,      ['the fool',
                              'the aeon',
                              'the universe']).
 
+tarotTrumpNumberName(TrumpNameScheme, TrumpNumber, Name) :-
+    tarotTrumpNames(TrumpNameScheme, Names),
+    nth0(TrumpNumber, Names, Name).
+
 isTarotTrump(Number) :-
     betweenCheckInteger(0, 21, Number).
-isTarotTrumpPathScheme(Scheme) :-
-    tarotTrumpPathOrder(Scheme, _).
+isTarotTrumpPathScheme(TrumpPathScheme) :-
+    tarotTrumpPathOrder(TrumpPathScheme, _).
 
-tarotTrumpPath(Scheme, TrumpNumber, Path) :-
+tarotTrumpPath(TrumpPathScheme, TrumpNumber, Path) :-
     isSefirotPath(Path),
     isTarotTrump(TrumpNumber),
-    isTarotTrumpPathScheme(Scheme),
-    tarotTrumpPathOrder(Scheme, Order),
+    isTarotTrumpPathScheme(TrumpPathScheme),
+    tarotTrumpPathOrder(TrumpPathScheme, Order),
     Idx is Path - 1,
     nth0(Idx, Order, TrumpNumber).
 
+%TRUMP ZODIAC INFO
+%tarotTrumpZodiacSign(TrumpId, Sign).
+tarotTrumpZodiacSign(emperor,    aries).
+tarotTrumpZodiacSign(hierophant, taurus).
+tarotTrumpZodiacSign(lovers,     gemini).
+tarotTrumpZodiacSign(chariot,    cancer).
+tarotTrumpZodiacSign(strength,   leo).
+tarotTrumpZodiacSign(hermit,     virgo).
+tarotTrumpZodiacSign(justice,    libra).
+tarotTrumpZodiacSign(death,      scorpio).
+tarotTrumpZodiacSign(temperance, sagittarius).
+tarotTrumpZodiacSign(devil,      capricorn).
+tarotTrumpZodiacSign(star,       aquarius).
+tarotTrumpZodiacSign(moon,       pisces).
+
+%tarotTrumpZodiacPlanet(TrumpId, Planet).
+tarotTrumpZodiacPlanet(magician,  mercury).
+tarotTrumpZodiacPlanet(priestess, moon).
+tarotTrumpZodiacPlanet(empress,   venus).
+tarotTrumpZodiacPlanet(fortune,   jupiter).
+tarotTrumpZodiacPlanet(tower,     mars).
+tarotTrumpZodiacPlanet(sun,       sun).
+tarotTrumpZodiacPlanet(world,  saturn).
+
+%tarotTrumpElement(TrumpId, Element).
+tarotTrumpElement(fool,      air).
+tarotTrumpElement(hangedman, water).
+tarotTrumpElement(judgement, fire).
+
+%tarotTrumpOrder(Scheme, Order).
+tarotTrumpOrder(rws,         [fool, magician, priestess, empress, emperor, hierophant, lovers, chariot, strength,
+                             hermit, fortune, justice, hangedman, death, temperance, devil, tower, star,
+                             moon, sun, judgement, world]).
+tarotTrumpOrder(traditional, [fool, magician, priestess, empress, emperor, hierophant, lovers, chariot, justice,
+                             hermit, fortune, strength, hangedman, death, temperance, devil, tower, star,
+                             moon, sun, judgement, world]).
+
+tarotTrumpNumberTrumpId(Scheme, TrumpNumber, TrumpId) :-
+    tarotTrumpOrder(Scheme, TrumpOrder),
+    nth0(TrumpNumber, TrumpOrder, TrumpId).
+tarotTrumpNumberZodiacSign(Scheme, TrumpNumber, Sign) :-
+    tarotTrumpNumberTrumpId(Scheme, TrumpNumber, TrumpId),
+    tarotTrumpZodiacSign(TrumpId, Sign).
+tarotTrumpNumberZodiacPlanet(Scheme, TrumpNumber, Planet) :-
+    tarotTrumpNumberTrumpId(Scheme, TrumpNumber, TrumpId),
+    tarotTrumpZodiacPlanet(TrumpId, Planet).
+tarotTrumpNumberElement(Scheme, TrumpNumber, Element) :-
+    tarotTrumpNumberTrumpId(Scheme, TrumpNumber, TrumpId),
+    tarotTrumpElement(TrumpId, Element).
 
 %SEFIROT NODES
 %sefirotNodeBasicInfo(Node, Name, HebrewName)
@@ -585,6 +638,22 @@ tarotNumberCardZodiacInfo(Card, Sign, Planet, Polarity, Modality,
 	tarotNumberCardZodiacTriplicity(Card, Triplicity),
     tarotNumberCardZodiacDignity(Card, Dignity).
 
+tarotTrumpCardZodiacSign(TrumpOrderScheme, Card, Sign) :-
+    tarotValSuitCard(TrumpNumber, trump, Card),
+    tarotTrumpNumberZodiacSign(TrumpOrderScheme, TrumpNumber, Sign).
+tarotTrumpCardZodiacPlanet(TrumpOrderScheme, Card, Planet) :-
+    tarotValSuitCard(TrumpNumber, trump, Card),
+    tarotTrumpNumberZodiacPlanet(TrumpOrderScheme, TrumpNumber, Planet).
+
+tarotNumberCardZodiacTrumps(TrumpOrderScheme, Card, SignTrumpCard, PlanetTrumpCard) :-
+    tarotNumberCardZodiacSign(Card, Sign),
+    tarotNumberCardZodiacPlanet(Card, Planet),
+    tarotTrumpCardZodiacSign(TrumpOrderScheme, SignTrumpCard, Sign),
+    tarotTrumpCardZodiacPlanet(TrumpOrderScheme, PlanetTrumpCard, Planet).
+
+tarotTrumpCardName(TrumpNameScheme, Card, Name) :-
+    tarotValSuitCard(TrumpNumber, trump, Card),
+    tarotTrumpNumberName(TrumpNameScheme, TrumpNumber, Name).
 
 
 
